@@ -1,6 +1,6 @@
-# 🧠 Gemini Sourcing Analyzer — VS Code Extension
+# 🌠 Gemini Sourcing Analyzer — VS Code Extension
 
-Инструмент для анализа стаффинг-запросов и OSINT по IT-компаниям. Использует Google Gemini API для генерации структурированной аналитики.
+🔗 Инструмент для анализа стаффинг-запросов и OSINT по IT-компаниям. Использует Google Gemini API для генерации структурированной аналитики.
 
 ---
 
@@ -20,7 +20,7 @@ npx webpack --config webpack.config.js
 
 ---
 
-## ⚙️ Конфигурация VS Code `settings.json`
+## ⚙️ Конфигурация VS Code (`settings.json`)
 
 Откройте командную палитру → `Preferences: Open Settings (JSON)` и добавьте:
 
@@ -32,21 +32,23 @@ npx webpack --config webpack.config.js
 }
 ```
 
-> `geminiSourcingAnalyzer.apiKey` необходим для выполнения запросов к Gemini API.
+> 💡 Параметр `geminiSourcingAnalyzer.apiKey` используется для вызова Gemini API через axios.
 
 ---
 
-## 🛠 Структура проекта
+## 📁 Структура проекта
 
-```bash
-├── dist/                  # Сборка Webpack
-├── src/                  # Исходники
-│   └── extension.ts      # Точка входа расширения
-├── lib/                  # Gemini API helper
-│   └── gemini.ts
-├── webpack.config.js     # Webpack-конфиг
-├── package.json          # Зависимости и команды
-└── tsconfig.json         # TypeScript-конфигурация
+```
+GEMINI-SOURCING-ANALYZER/
+├── dist/
+│   └── extension.js               # Скомпилированный файл расширения
+├── lib/
+│   └── gemini.ts                  # Работа с Gemini API
+├── src/
+│   └── extension.ts              # Точка входа VS Code Extension
+├── webpack.config.js             # Webpack-конфигурация
+├── tsconfig.json                 # TypeScript-настройки
+├── package.json                  # Скрипты и зависимости
 ```
 
 ---
@@ -55,101 +57,56 @@ npx webpack --config webpack.config.js
 
 - 📌 Нормализация входного текста (извлечение компании, роли, стека и т.д.)
 - 🌐 OSINT-анализ компании по открытым источникам
-- 🧾 Вывод Markdown-документа с результатами
+- 🗞️ Вывод Markdown-документа с результатами
 - ⏩ Автоматическое продолжение длинных ответов Gemini при необходимости
 
 ---
 
-## 📎 Пример использования
+## 🧪 Пример использования
 
 1. Запустить расширение в VS Code (`Run Extension`)
 2. Выполнить команду `Gemini: Анализ стаффинг сообщения`
-3. Вставить полный текст из канала стаффинга
-4. Получить результат в виде Markdown-документа
+3. Вставить текст из канала стаффинга
+4. Получить структурированный анализ в новом окне
 
 ---
 
-⚙️ Настройка расширения Gemini Sourcing Analyzer
-📘 Конфигурация settings.json в VS Code
-Для корректной работы расширения необходимо указать API-ключ Gemini:
+## ⚒️ Разработка и отладка
 
-Шаги:
-Откройте VS Code
+### ▶️ Запуск в режиме отладки
 
-Перейдите в настройки: Ctrl + Shift + P → Preferences: Open Settings (JSON)
+1. Откройте проект в VS Code
+2. Нажмите `F5` (запуск в "Extension Development Host")
+3. Выполните команду `Gemini: Анализ стаффинг сообщения`
 
-Добавьте следующую конфигурацию:
+---
 
-json
+## 🚒 Публикация в VS Code Marketplace
 
-{
-  "redhat.telemetry.enabled": true,
-  "geminiSourcingAnalyzer.apiKey": "AIzaSyBV3iKFg", // 🔑 ваш реальный ключ Gemini API
-  "editor.accessibilitySupport": "on"
-}
-💡 Параметр geminiSourcingAnalyzer.apiKey будет использоваться для вызова Gemini API через axios.
-
-📦 Сборка и публикация Gemini Sourcing Analyzer
-🔧 Установка зависимостей
-bash
-
-npm install
-🛠️ Сборка с Webpack
-bash
-
-npx webpack --config webpack.config.js
-После этого скомпилированный extension.js будет доступен в директории dist.
-
-📁 Структура проекта
-pgsql
-
-GEMINI-SOURCING-ANALYZER/
-├── dist/
-│   └── extension.js
-├── lib/
-│   └── gemini.ts
-├── src/
-│   └── extension.ts
-├── webpack.config.js
-├── tsconfig.json
-├── package.json
-🚀 Запуск в режиме отладки
-Выполните:
-
-F5 в VS Code
-
-В открывшемся окне “Extension Development Host” используйте команду:
-
-makefile
-
-Gemini: Анализ стаффинг сообщения
-📤 Публикация в VS Code Marketplace
-1. Установка vsce — VS Code Extension CLI:
-bash
-
+### 1. Установка CLI
+```bash
 npm install -g @vscode/vsce
-2. Создание личного access token на https://dev.azure.com
-Тип: All accessible organizations
+```
 
-Scopes: Marketplace > Manage
+### 2. Создание токена
+- Перейдите на [Azure DevOps](https://dev.azure.com)
+- Создайте **Personal Access Token**
+- Разрешения: `Marketplace > Manage`
 
-Сохраните токен.
-
-3. Выпуск .vsix файла:
-bash
-
+### 3. Сборка `.vsix`
+```bash
 vsce package
-Появится файл gemini-sourcing-analyzer-0.0.1.vsix.
+```
+Создаст файл вида: `gemini-sourcing-analyzer-0.0.1.vsix`
 
-4. Публикация:
-bash
-
+### 4. Публикация
+```bash
 vsce publish --pat <ВАШ_ТОКЕН>
-📌 Важно: перед публикацией убедитесь, что:
+```
 
-В package.json указано уникальное имя и publisher
+> Убедитесь, что в `package.json` указан правильный `name` и `publisher`, а также что вы зарегистрированы как publisher в Marketplace.
 
-Создан publisher в Visual Studio Marketplace
+---
 
 ## 📄 Лицензия
 MIT
